@@ -8,23 +8,7 @@ const cancelBtn = document.querySelector("#cancel-btn")
 
 //'Go to gym', "Revision Web dev", "Take class"
 
-let todos = [
-    {
-        id: Date.now() + 1,
-        text: "Go to gym",
-        isCompleted: false
-    },
-    {
-        id: Date.now() + 2,
-        text: "Revision Web dev",
-        isCompleted: true
-    },
-    {
-        id: Date.now() + 3,
-        text: "Take class",
-        isCompleted: false
-    }
-]
+let todos = JSON.parse(localStorage.getItem("todos")) || [];
 
 let editTodoId = null  // flag
 todoForm.addEventListener('submit', (e) => {
@@ -51,6 +35,8 @@ todoForm.addEventListener('submit', (e) => {
             return todo
         })
 
+        localStorage.setItem("todos" , JSON.stringify(todos))
+
 
     } else {
         //adding
@@ -61,6 +47,7 @@ todoForm.addEventListener('submit', (e) => {
         }
 
         todos.push(newTodo) // adding new todo to exisiting todos list
+        localStorage.setItem("todos" , JSON.stringify(todos))
 
         // todos.push({
         //     id: Date.now(),
@@ -142,6 +129,7 @@ todoList.addEventListener('click', (e) => {
             }
             return todo
         })
+        localStorage.setItem("todos" , JSON.stringify(todos))
         renderTodo()
     }
 })
@@ -152,6 +140,7 @@ function deleteTodo(id) {
             return todo
         }
     })
+    localStorage.setItem("todos" , JSON.stringify(todos))
     renderTodo()
 }
 
